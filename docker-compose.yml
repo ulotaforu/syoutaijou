@@ -1,0 +1,30 @@
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.node
+      target: dev
+    working_dir: /syoutaijou
+    volumes:
+      - type: bind
+        source: ./
+        target: /syoutaijou
+      # wrangler の永続化
+      - type: bind
+        source: /home/node/wrangler-data
+        target: /home/node/.config
+      - type: bind
+        source: ./docker/.bashrc
+        target: /home/node/.bashrc
+      # SSH socket forwarding
+      - type: bind
+        source: /tmp/ssh-JpVDsXzL5zPx/agent.78578
+        target: /tmp/ssh-JpVDsXzL5zPx/agent.78578
+    ports:
+      - '3000:3000'
+      - '4983:4983'
+      - '2222:2222'
+    environment:
+      LANG: ja_JP.UTF-8
+      LC_CTYPE: ja_JP.UTF-8
+      SSH_AUTH_SOCK: /tmp/ssh-JpVDsXzL5zPx/agent.78578
