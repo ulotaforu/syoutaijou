@@ -21,7 +21,7 @@ services:
         source: /tmp/ssh-JpVDsXzL5zPx/agent.78578
         target: /tmp/ssh-JpVDsXzL5zPx/agent.78578
     ports:
-      - '3000:3000'
+      - '5173:5173'
       - '4983:4983'
       - '2222:2222'
     environment:
