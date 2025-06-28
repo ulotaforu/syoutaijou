@@ -1,0 +1,14 @@
+name = "syoutaijou"
+compatibility_date = "2025-06-25"
+main = "./worker.ts"
+assets = { directory = "./build/client" }
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+MY_VAR = "My Value"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "syoutaijou-db"
+database_id = "feacfb2e-0b46-486a-985e-a01558ce06df"
+migrations_dir = "server/drizzle"

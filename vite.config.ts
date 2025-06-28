@@ -1,20 +1,22 @@
-import build from "@hono/vite-build/cloudflare-workers";
+// vite.config.ts
 import adapter from "@hono/vite-dev-server/cloudflare";
-import tailwindcss from "@tailwindcss/vite";
-import honox from "honox/vite";
+import { reactRouter } from "@react-router/dev/vite";
+import { cloudflareDevProxy as remixCloudflareDevProxy } from "@react-router/dev/vite/cloudflare";
+import serverAdapter from "hono-react-router-adapter/vite";
 import { defineConfig } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
+import { getLoadContext } from "./load-context";
 
 export default defineConfig({
+	base: "/",
 	plugins: [
-		honox({
-			devServer: { adapter },
-			client: { input: ["./app/style.css"] },
+		remixCloudflareDevProxy(),
+		reactRouter(),
+		serverAdapter({
+			adapter,
+			getLoadContext,
+			entry: "server/index.ts",
 		}),
-		tailwindcss(),
-		build(),
+		tsconfigPaths(),
 	],
-	server: {
-		host: "0.0.0.0",
-		port: 5173,
-	},
 });
