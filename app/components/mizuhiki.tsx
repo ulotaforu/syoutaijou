@@ -4,7 +4,7 @@ export default function Mizuhiki() {
 	const redColor = "#E60012";
 
 	return (
-		<div className="bg-white w-full h-screen flex justify-center items-center overflow-hidden">
+		<div className="w-full h-screen flex justify-center items-center overflow-hidden">
 			<div className="w-full opacity-0 animate-fade-in">
 				<svg
 					version="1.1"
@@ -131,7 +131,7 @@ export default function Mizuhiki() {
 		c-1.772,0.596-3.675,0.854-5.609,0.854l-0.526-1.998L228.438,278.658z"
 						/>
 						<path
-							class="mizuhiki-right-1"
+							className="mizuhiki-right-1"
 							style={{ fill: redColor }}
 							d="M242.269,261.09c1.961-0.002,3.904,0.214,5.778,0.688c1.874,0.469,3.675,1.193,5.365,2.148
 		c3.396,1.902,6.291,4.706,8.967,7.788c0.671,0.771,1.334,1.561,1.995,2.359l1.974,2.4c0.636,0.798,1.311,1.662,2.05,2.492
@@ -151,7 +151,7 @@ export default function Mizuhiki() {
 		c-1.874-0.474-3.817-0.689-5.778-0.688V257.532z"
 						/>
 						<path
-							class="mizuhiki-right-1"
+							className="mizuhiki-right-1"
 							style={{ fill: redColor }}
 							d="M242.269,253.979c2.476-0.002,5.018,0.274,7.51,0.901c2.49,0.621,4.913,1.6,7.123,2.851
 		c2.216,1.246,4.216,2.746,6.002,4.344c1.789,1.599,3.376,3.291,4.837,4.97c0.73,0.839,1.432,1.675,2.111,2.496l2.047,2.489
