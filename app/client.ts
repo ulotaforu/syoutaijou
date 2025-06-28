@@ -1,3 +1,3 @@
-import { createClient } from 'honox/client'
-
-createClient()
+import { createClient } from "honox/client";
+import "./style.css";
+createClient();
