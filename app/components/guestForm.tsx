@@ -75,12 +75,34 @@ export default function GuestForm() {
 
 	return (
 		<div className="flex flex-col justify-center items-center w-full max-w-full px-2 box-border">
+			<div className="text-2xl md:text-3xl font-bold">回答フォーム</div>
+			<br />
 			<Form
 				id={form.id}
 				onSubmit={form.onSubmit}
 				className="space-y-6 w-full max-w-full overflow-hidden box-border"
 				style={{ maxWidth: "28rem" }}
 			>
+				<div className="w-full space-y-2">
+					<AttendanceRadio
+						name={fields.status.name}
+						value={fields.status.value || ""}
+						onChange={(value) => {
+							// フォームフィールドの値を更新
+							const input = document.querySelector(
+								`input[name="${fields.status.name}"][value="${value}"]`,
+							);
+							if (input instanceof HTMLInputElement) {
+								input.checked = true;
+							}
+						}}
+						required={true}
+					/>
+					{fields.status.errors && (
+						<div className="text-red-600">{fields.status.errors[0]}</div>
+					)}
+				</div>
+
 				<div className="w-full space-y-2">
 					<label htmlFor={fields.lastName.id} className="block font-medium">
 						姓 <span className="text-red-500">*</span>
@@ -146,30 +168,27 @@ export default function GuestForm() {
 					)}
 				</div>
 
-				<div className="w-full space-y-2">
-					<AttendanceRadio
-						name={fields.status.name}
-						value={fields.status.value || ""}
-						onChange={(value) => {
-							// フォームフィールドの値を更新
-							const input = document.querySelector(`input[name="${fields.status.name}"][value="${value}"]`);
-							if (input instanceof HTMLInputElement) {
-								input.checked = true;
-							}
-						}}
-						required={true}
-					/>
-					{fields.status.errors && (
-						<div className="text-red-600">{fields.status.errors[0]}</div>
-					)}
-				</div>
-
-				<div className="w-full">
+				<div className="w-full flex justify-center mb-6">
 					<button
 						type="submit"
-						className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+						className="cursor-pointer flex justify-center items-center px-8 py-2 rounded-md border-2 transition-all duration-200 font-medium"
+						style={{
+							borderColor: "#991b1b",
+							backgroundColor: "white",
+							color: "#991b1b"
+						}}
+						onMouseEnter={(e) => {
+							e.currentTarget.style.borderColor = "#fbbf24";
+							e.currentTarget.style.backgroundColor = "#991b1b";
+							e.currentTarget.style.color = "white";
+						}}
+						onMouseLeave={(e) => {
+							e.currentTarget.style.borderColor = "#991b1b";
+							e.currentTarget.style.backgroundColor = "white";
+							e.currentTarget.style.color = "#991b1b";
+						}}
 					>
-						送信する
+						送信
 					</button>
 				</div>
 			</Form>
