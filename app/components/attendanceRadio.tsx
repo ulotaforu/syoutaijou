@@ -30,7 +30,7 @@ export default function AttendanceRadio({
 			<legend className="block font-medium mb-2">
 				出欠席 <span className="text-red-500">*</span>
 			</legend>
-			<div className="space-x-4 flex">
+			<div className="space-x-4 flex justify-center">
 				<div className="relative">
 					<input
 						id={`${name}-yes`}
