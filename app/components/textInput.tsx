@@ -16,7 +16,6 @@ export default function TextInput({
 			style={{
 				maxWidth: width === "w-md" ? "28rem" : "16rem",
 			}}
-			required
 		/>
 	);
 }
