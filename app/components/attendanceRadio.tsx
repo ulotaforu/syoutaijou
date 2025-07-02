@@ -3,53 +3,46 @@ import React, { useState } from "react";
 type AttendanceRadioProps = {
 	name: string;
 	value?: string;
-	onChange?: (value: string) => void;
-	required?: boolean;
+	id: string;
 };
 
 export default function AttendanceRadio({
 	name,
 	value,
-	onChange,
-	required = false,
+	id,
 }: AttendanceRadioProps) {
-	// 内部状態として選択状態を管理
 	const [selectedValue, setSelectedValue] = useState(value || "");
 
 	// 選択が変更されたときのハンドラー
 	const handleChange = (newValue: string) => {
 		setSelectedValue(newValue);
-		// onChangeハンドラがある場合のみ呼び出し
-		if (onChange) {
-			onChange(newValue);
-		}
 	};
 
 	return (
 		<fieldset>
+			<input type="hidden" id={id} name={name} value={selectedValue} />
 			<legend className="block font-medium mb-2">
 				出欠席 <span className="text-red-500">*</span>
 			</legend>
 			<div className="space-x-4 flex justify-center">
 				<div className="relative">
 					<input
-						id={`${name}-yes`}
-						name={name}
+						id={`${name}-attend`}
+						name={`${name}-display`}
 						type="radio"
 						value="attend"
-						className="sr-only" /* スクリーンリーダーのみに表示 */
-						required={required}
+						className="sr-only"
 						checked={selectedValue === "attend"}
 						onChange={() => handleChange("attend")}
 					/>
 					<label
-						htmlFor={`${name}-yes`}
+						htmlFor={`${name}-attend`}
 						className="group cursor-pointer flex items-center px-6 py-2 rounded-md border-2 transition-all duration-200 font-medium
                        text-red-800"
 						style={{
 							borderColor: selectedValue === "attend" ? "#fbbf24" : "#991b1b",
 							backgroundColor: selectedValue === "attend" ? "#991b1b" : "white",
-							color: selectedValue === "attend" ? "white" : "#991b1b"
+							color: selectedValue === "attend" ? "white" : "#991b1b",
 						}}
 					>
 						<span
@@ -59,18 +52,18 @@ export default function AttendanceRadio({
 								borderColor: "#991b1b",
 								display: "flex",
 								alignItems: "center",
-								justifyContent: "center"
+								justifyContent: "center",
 							}}
 						>
 							{selectedValue === "attend" && (
 								<span
 									className="w-3 h-3 rounded-full"
-									style={{ 
+									style={{
 										backgroundColor: "#fbbf24",
 										position: "absolute",
 										left: "50%",
 										top: "50%",
-										transform: "translate(-50%, -50%)"
+										transform: "translate(-50%, -50%)",
 									}}
 								></span>
 							)}
@@ -80,22 +73,22 @@ export default function AttendanceRadio({
 				</div>
 				<div className="relative">
 					<input
-						id={`${name}-no`}
-						name={name}
+						id={`${name}-absent`}
+						name={`${name}-display`}
 						type="radio"
 						value="absent"
-						className="sr-only" /* スクリーンリーダーのみに表示 */
+						className="sr-only"
 						checked={selectedValue === "absent"}
 						onChange={() => handleChange("absent")}
 					/>
 					<label
-						htmlFor={`${name}-no`}
+						htmlFor={`${name}-absent`}
 						className="group cursor-pointer flex items-center px-6 py-2 rounded-md border-2 transition-all duration-200 font-medium
                        text-red-800"
 						style={{
 							borderColor: selectedValue === "absent" ? "#fbbf24" : "#991b1b",
 							backgroundColor: selectedValue === "absent" ? "#991b1b" : "white",
-							color: selectedValue === "absent" ? "white" : "#991b1b"
+							color: selectedValue === "absent" ? "white" : "#991b1b",
 						}}
 					>
 						<span
@@ -105,18 +98,18 @@ export default function AttendanceRadio({
 								borderColor: "#991b1b",
 								display: "flex",
 								alignItems: "center",
-								justifyContent: "center"
+								justifyContent: "center",
 							}}
 						>
 							{selectedValue === "absent" && (
 								<span
 									className="w-3 h-3 rounded-full"
-									style={{ 
+									style={{
 										backgroundColor: "#fbbf24",
 										position: "absolute",
 										left: "50%",
 										top: "50%",
-										transform: "translate(-50%, -50%)"
+										transform: "translate(-50%, -50%)",
 									}}
 								></span>
 							)}

@@ -4,7 +4,7 @@ import Information from "../components/information";
 import { wedding, user } from "../../server/db/schema";
 import { drizzle } from "drizzle-orm/d1";
 import { eq } from "drizzle-orm";
-import GuestForm from "~/components/guestForm";
+import GuestForm, { action as guestFormAction } from "~/components/guestForm";
 
 export const loader = async ({ context, params }: Route.LoaderArgs) => {
 	// URLからuuidパラメータを取得
@@ -47,6 +47,8 @@ export const loader = async ({ context, params }: Route.LoaderArgs) => {
 	return { weddingData: weddingResults[0] };
 };
 
+export const action = guestFormAction;
+
 export default function WeddingDetails({ loaderData }: Route.ComponentProps) {
 	const { weddingData } = loaderData;
 
@@ -60,6 +62,7 @@ export default function WeddingDetails({ loaderData }: Route.ComponentProps) {
 				time={weddingData.wedding.time}
 				place={weddingData.wedding.place}
 			/>
+			<br />
 			<GuestForm />
 		</div>
 	);

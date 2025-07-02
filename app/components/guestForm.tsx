@@ -1,6 +1,6 @@
 import type { Route } from "./+types/getForm";
 import { useForm } from "@conform-to/react";
-import { object, string } from "valibot";
+import { object, string, optional, pipe, maxLength } from "valibot";
 import { parseWithValibot } from "@conform-to/valibot";
 import { Form, useActionData } from "react-router";
 import { drizzle } from "drizzle-orm/d1";
@@ -13,9 +13,11 @@ const postDataSchema = object({
 	lastName: string("苗字を入力してください"),
 	firstName: string("名前を入力してください"),
 	address: string("住所を入力してください"),
-	message: string(),
-	information: string(),
-	status: string(),
+	message: optional(
+		pipe(string(), maxLength(250, "メッセージは250文字以内で入力してください")),
+	),
+	information: optional(string()),
+	status: string("出欠席を選択してください"),
 });
 
 export const action = async ({
@@ -23,9 +25,16 @@ export const action = async ({
 	context,
 	params,
 }: Route.ActionArgs) => {
+	console.log("Action function called");
 	const formData = await request.formData();
+	console.log("Form data entries:");
+	for (const [key, value] of formData.entries()) {
+		console.log(`${key}: ${value}`);
+	}
 	const submission = parseWithValibot(formData, { schema: postDataSchema });
+	console.log("Submission result:", submission);
 	if (submission.status !== "success") {
+		console.log("Validation failed:", submission.error);
 		return submission.reply();
 	}
 
@@ -49,15 +58,36 @@ export const action = async ({
 	}
 
 	// 取得したuser_idを使用してguest情報をINSERT
-	await db.insert(guest).values({
+	console.log("Inserting guest data:", {
 		name: `${submission.value.lastName}　${submission.value.firstName}`,
 		address: submission.value.address,
-		message: submission.value.message,
-		information: submission.value.information,
+		message: submission.value.message || "",
+		information: submission.value.information || "",
 		status: submission.value.status,
 		user_id: weddingResult[0].user_id,
 	});
-	return submission;
+
+	try {
+		await db.insert(guest).values({
+			name: `${submission.value.lastName}　${submission.value.firstName}`,
+			address: submission.value.address,
+			message: submission.value.message || "",
+			information: submission.value.information || "",
+			status: submission.value.status,
+			user_id: weddingResult[0].user_id,
+		});
+		console.log("Insert successful");
+	} catch (error) {
+		console.error("Insert failed:", error);
+		throw error;
+	}
+
+	// 成功メッセージを返す
+	return {
+		...submission.reply(),
+		success: true,
+		message: "ご回答ありがとうございます",
+	};
 };
 
 export default function GuestForm() {
@@ -71,7 +101,8 @@ export default function GuestForm() {
 		},
 	});
 
-	// 出欠席の状態はラジオボタン自体の状態で管理するため、Reactステートは不要
+	// 成功状態を判定
+	const isSuccess = lastResult?.success;
 
 	return (
 		<div className="flex flex-col justify-center items-center w-full max-w-full px-2 box-border">
@@ -80,6 +111,7 @@ export default function GuestForm() {
 			<Form
 				id={form.id}
 				onSubmit={form.onSubmit}
+				method="POST"
 				className="space-y-6 w-full max-w-full overflow-hidden box-border"
 				style={{ maxWidth: "28rem" }}
 			>
@@ -87,17 +119,9 @@ export default function GuestForm() {
 					<AttendanceRadio
 						name={fields.status.name}
 						value={fields.status.value || ""}
-						onChange={(value) => {
-							// フォームフィールドの値を更新
-							const input = document.querySelector(
-								`input[name="${fields.status.name}"][value="${value}"]`,
-							);
-							if (input instanceof HTMLInputElement) {
-								input.checked = true;
-							}
-						}}
-						required={true}
+						id={fields.status.id}
 					/>
+
 					{fields.status.errors && (
 						<div className="text-red-600">{fields.status.errors[0]}</div>
 					)}
@@ -144,6 +168,7 @@ export default function GuestForm() {
 					<textarea
 						id={fields.message.id}
 						name={fields.message.name}
+						maxLength={250}
 						className="rounded border p-2 h-24"
 						style={{ width: "100%" }}
 					/>
@@ -168,27 +193,41 @@ export default function GuestForm() {
 					)}
 				</div>
 
-				<div className="w-full flex justify-center mb-6">
+				<div className="w-full flex flex-col items-center mb-6">
+					{isSuccess && (
+						<div className="mb-4 text-center">
+							<div className="text-black font-medium text-lg">
+								{lastResult.message}
+							</div>
+						</div>
+					)}
+
 					<button
 						type="submit"
-						className="cursor-pointer flex justify-center items-center px-8 py-2 rounded-md border-2 transition-all duration-200 font-medium"
+						disabled={isSuccess}
+						className="flex justify-center items-center px-8 py-2 rounded-md border-2 transition-all duration-200 font-medium"
 						style={{
-							borderColor: "#991b1b",
-							backgroundColor: "white",
-							color: "#991b1b"
+							borderColor: isSuccess ? "#ccc" : "#991b1b",
+							backgroundColor: isSuccess ? "#f5f5f5" : "white",
+							color: isSuccess ? "#999" : "#991b1b",
+							cursor: isSuccess ? "not-allowed" : "pointer",
 						}}
 						onMouseEnter={(e) => {
-							e.currentTarget.style.borderColor = "#fbbf24";
-							e.currentTarget.style.backgroundColor = "#991b1b";
-							e.currentTarget.style.color = "white";
+							if (!isSuccess) {
+								e.currentTarget.style.borderColor = "#fbbf24";
+								e.currentTarget.style.backgroundColor = "#991b1b";
+								e.currentTarget.style.color = "white";
+							}
 						}}
 						onMouseLeave={(e) => {
-							e.currentTarget.style.borderColor = "#991b1b";
-							e.currentTarget.style.backgroundColor = "white";
-							e.currentTarget.style.color = "#991b1b";
+							if (!isSuccess) {
+								e.currentTarget.style.borderColor = "#991b1b";
+								e.currentTarget.style.backgroundColor = "white";
+								e.currentTarget.style.color = "#991b1b";
+							}
 						}}
 					>
-						送信
+						{isSuccess ? "送信済み" : "送信"}
 					</button>
 				</div>
 			</Form>
