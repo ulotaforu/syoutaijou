@@ -14,7 +14,8 @@ export default function Information({
 	place,
 }: InformationProps) {
 	const mainSize = "text-sm md:text-2xl";
-	const subjextSize = "text-2xl md:text-3xl font-bold";
+	const subjectSize = "text-2xl md:text-3xl font-bold";
+	const subSize = "text-xs md:text-xl";
 
 	return (
 		<div className="flex flex-col items-center justify-center space-y-3 mx-2">
@@ -36,12 +37,13 @@ export default function Information({
 			<div className={mainSize}>{invitee}</div>
 			<br />
 			<br />
-			<div className={subjextSize}>日時</div>
+			<div className={subjectSize}>日時</div>
 			<br />
 			<div className={mainSize}>{date}</div>
 			<div className={mainSize}>{time}</div>
+			<div className={subSize}>開宴30分前迄に地下1階の受付にお越しください</div>
 			<br />
-			<div className={subjextSize}>場所</div>
+			<div className={subjectSize}>場所</div>
 			<br />
 			<pre
 				className={`${mainSize} whitespace-pre-wrap text-center`}
