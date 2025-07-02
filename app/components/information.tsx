@@ -51,6 +51,16 @@ export default function Information({
 			>
 				{place}
 			</pre>
+			<div className="w-full max-w-2xl mx-auto">
+				<iframe
+					src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3249.916658518871!2d139.632999756181!3d35.45685765505322!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60185be545597627%3A0x5899d4a6e50cd4a!2z5qiq5rWc44OZ44Kk44Ob44OG44Or5p2x5oCl!5e0!3m2!1sja!2sjp!4v1751491525358!5m2!1sja!2sjp"
+					className="w-full h-64 md:h-96"
+					style={{ border: 0 }}
+					allowFullScreen
+					loading="lazy"
+					referrerPolicy="no-referrer-when-downgrade"
+				></iframe>
+			</div>
 		</div>
 	);
 }
