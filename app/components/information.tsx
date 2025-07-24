@@ -1,5 +1,6 @@
 type InformationProps = {
-	invitee: string;
+	groom: string;
+	bride: string;
 	sendData: string;
 	date: string;
 	time: string;
@@ -7,7 +8,8 @@ type InformationProps = {
 };
 
 export default function Information({
-	invitee,
+	groom,
+	bride,
 	sendData,
 	date,
 	time,
@@ -34,7 +36,8 @@ export default function Information({
 			<div className={mainSize}>ご出席くださいますようお願い申し上げます</div>
 			<div className={mainSize}>{sendData}</div>
 			<br />
-			<div className={mainSize}>{invitee}</div>
+			<div className={mainSize}>{groom}</div>
+			<div className={mainSize}>{bride}</div>
 			<br />
 			<br />
 			<div className={subjectSize}>日時</div>

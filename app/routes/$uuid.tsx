@@ -56,7 +56,8 @@ export default function WeddingDetails({ loaderData }: Route.ComponentProps) {
 		<div>
 			<Mizuhiki />
 			<Information
-				invitee={`${weddingData.user.male_name}　${weddingData.user.female_name}`}
+				groom={weddingData.user.male_name}
+				bride={weddingData.user.female_name}
 				sendData={weddingData.wedding.send_at}
 				date={weddingData.wedding.date}
 				time={weddingData.wedding.time}
