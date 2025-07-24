@@ -62,6 +62,7 @@ export default function Information({
 					allowFullScreen
 					loading="lazy"
 					referrerPolicy="no-referrer-when-downgrade"
+					title="会場の地図"
 				></iframe>
 			</div>
 		</div>
