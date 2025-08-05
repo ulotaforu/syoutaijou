@@ -4,7 +4,12 @@ export default function Mizuhiki() {
 	const redColor = "#E60012";
 
 	return (
-		<div className="w-full h-screen flex justify-center items-center overflow-hidden">
+		<div className="w-full h-screen flex justify-center items-center overflow-hidden relative">
+			<div className="absolute top-16 left-1/2 transform -translate-x-1/2 z-10">
+				<h1 className="text-6xl font-bold [writing-mode:vertical-rl] [text-orientation:upright] font-serif tracking-widest">
+					招待状
+				</h1>
+			</div>
 			<div className="w-full opacity-0 animate-fade-in">
 				<svg
 					version="1.1"
@@ -19,6 +24,8 @@ export default function Mizuhiki() {
 					preserveAspectRatio="xMidYMid meet"
 					// style="enable-background:new 0 0 512 512;"
 					xmlSpace="preserve"
+					role="img"
+					aria-label="水引の装飾"
 				>
 					<g>
 						<rect
