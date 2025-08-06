@@ -4,8 +4,8 @@ export default function Mizuhiki() {
 	const redColor = "#E60012";
 
 	return (
-		<div className="w-full h-screen flex justify-center items-center overflow-hidden relative">
-			<div className="absolute top-20 sm:top-12 left-0 right-0 z-10 opacity-0 animate-fade-in flex justify-center">
+		<div className="w-full h-[100svh] flex flex-col justify-center items-center overflow-hidden relative">
+			<div className="opacity-0 animate-fade-in -mt-32 sm:-mt-16 mb-24 sm:mb-0 flex justify-center">
 				<div className="text-4xl sm:text-6xl font-bold [writing-mode:vertical-rl] [text-orientation:upright] font-serif">
 					招待状
 				</div>
