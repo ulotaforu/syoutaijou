@@ -53,18 +53,22 @@ export default function WeddingDetails({ loaderData }: Route.ComponentProps) {
 	const { weddingData } = loaderData;
 
 	return (
-		<div>
-			<Mizuhiki />
-			<Information
-				groom={weddingData.user.male_name}
-				bride={weddingData.user.female_name}
-				sendData={weddingData.wedding.send_at}
-				date={weddingData.wedding.date}
-				time={weddingData.wedding.time}
-				place={weddingData.wedding.place}
-			/>
-			<br />
-			<GuestForm />
+		<div className="min-h-screen min-h-[100dvh] bg-white">
+			<div className="flex flex-col">
+				<Mizuhiki />
+				<div className="flex-1 px-4 pb-8">
+					<Information
+						groom={weddingData.user.male_name}
+						bride={weddingData.user.female_name}
+						sendData={weddingData.wedding.send_at}
+						date={weddingData.wedding.date}
+						time={weddingData.wedding.time}
+						place={weddingData.wedding.place}
+					/>
+					<br />
+					<GuestForm />
+				</div>
+			</div>
 		</div>
 	);
 }
