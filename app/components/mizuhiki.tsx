@@ -4,13 +4,13 @@ export default function Mizuhiki() {
 	const redColor = "#E60012";
 
 	return (
-		<div className="w-full h-[100svh] flex justify-center items-center overflow-hidden relative">
+		<div className="w-full h-[100dvh] flex justify-center items-center overflow-hidden relative">
 			<div className="absolute top-20 sm:top-12 left-0 right-0 z-10 opacity-0 animate-fade-in flex justify-center">
 				<div className="text-4xl sm:text-6xl font-bold [writing-mode:vertical-rl] [text-orientation:upright] font-serif">
 					招待状
 				</div>
 			</div>
-			<div className="absolute inset-0 flex justify-center items-center opacity-0 animate-fade-in">
+			<div className="absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center opacity-0 animate-fade-in z-0">
 				<svg
 					version="1.1"
 					id="_x32_"
