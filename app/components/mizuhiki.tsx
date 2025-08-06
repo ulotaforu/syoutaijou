@@ -5,7 +5,7 @@ export default function Mizuhiki() {
 
 	return (
 		<div className="w-full h-[100dvh] flex flex-col justify-center items-center overflow-hidden relative">
-			<div className="opacity-0 animate-fade-in -mt-32 sm:-mt-16 mb-24 sm:mb-0">
+			<div className="opacity-0 animate-fade-in -mt-32 sm:-mt-16 mb-24 sm:mb-0 flex justify-center">
 				<div className="text-4xl sm:text-6xl font-bold [writing-mode:vertical-rl] [text-orientation:upright] font-serif">
 					招待状
 				</div>
