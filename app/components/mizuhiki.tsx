@@ -5,10 +5,10 @@ export default function Mizuhiki() {
 
 	return (
 		<div className="w-full h-screen flex justify-center items-center overflow-hidden relative">
-			<div className="absolute top-16 left-1/2 transform -translate-x-1/2 z-10">
-				<h1 className="text-6xl font-bold [writing-mode:vertical-rl] [text-orientation:upright] font-serif tracking-widest">
+			<div className="absolute top-20 sm:top-12 left-0 right-0 z-10 opacity-0 animate-fade-in flex justify-center">
+				<div className="text-4xl sm:text-6xl font-bold [writing-mode:vertical-rl] [text-orientation:upright] font-serif">
 					招待状
-				</h1>
+				</div>
 			</div>
 			<div className="w-full opacity-0 animate-fade-in">
 				<svg
