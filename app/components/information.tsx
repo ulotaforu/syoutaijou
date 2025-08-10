@@ -44,7 +44,7 @@ export default function Information({
 			<br />
 			<div className={mainSize}>{date}</div>
 			<div className={mainSize}>{time}</div>
-			<div className={subSize}>開宴30分前迄に地下1階の受付にお越しください</div>
+			<div className={subSize}>開宴30分前迄に控室にお越しください</div>
 			<br />
 			<div className={subjectSize}>場所</div>
 			<br />
